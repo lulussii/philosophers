@@ -1,18 +1,24 @@
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
-SRCS = philo.c\
-OBJS_DIR = objs
-OBJ = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
+CFLAGS = -Wall -Werror -Wextra -g
+SRC_DIR = src
+HEADER_DIR = include
+HEADER = $(HEADER_DIR)/philo.h
+SRC = $(SRC_DIR)/philo.c\
+	$(SRC_DIR)/utils.c\
+	$(SRC_DIR)/parsing.c
+
+OBJ_DIR = objs
+OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 # Couleurs
-GREEN = \033[0;32m
-YELLOW = \033[0;33m
-BLUE = \033[0;34m
+GREEN = \033[38;5;183m
+YELLOW = \033[38;5;117m
+BLUE = \033[38;5;205m
 RESET = \033[0m
 
 # Comptage des fichiers
-TOTAL_FILES := $(words $(SRCS))
+TOTAL_FILES := $(words $(SRC))
 CURRENT_FILE = 0
 
 # Fonction de progression
@@ -30,31 +36,30 @@ define complete_progress
 	@printf "\r$(YELLOW)Compilation: [$(BLUE)####################$(YELLOW)] 100%%                                 $(RESET)\n"
 endef
 
-$(OBJS_DIR)/%.o: %.c
-	@mkdir -p $(OBJS_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
 	$(call progress_bar)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 	@echo "$(GREEN)Compilation terminée avec succès !$(RESET)"
 
-$(NAME): $(OBJ) libft.h Makefile
+$(NAME): $(OBJ) Makefile
 	$(call complete_progress)
 	@echo "$(GREEN)Création de la bibliothèque $(NAME)...$(RESET)"
-	@ar rcs $(NAME) $(OBJ)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) 
 	@echo "$(GREEN)Bibliothèque $(NAME) créée !$(RESET)"
 
 clean:
 	@echo "$(YELLOW)Suppression des fichiers objets...$(RESET)"
-	@rm -rf $(OBJS_DIR)
+	@rm -rf $(OBJ_DIR)
 	@echo "$(GREEN)Fichiers objets supprimés !$(RESET)"
 
 fclean: clean
 	@echo "$(YELLOW)Suppression de $(NAME)...$(RESET)"
 	@rm -f $(NAME)
-	@rm -f .bonus
 	@echo "$(GREEN)$(NAME) supprimé !$(RESET)"
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re

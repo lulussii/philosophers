@@ -6,13 +6,25 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 13:04:24 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/07 13:10:22 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:58:20 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
-int	main(void)
+void	ft_error(char *str, t_all *all)
 {
-	pthread_create()
+	ft_putstr(str);
+	free(all);
+	exit(1);
+}
+
+int	main(int argc, char **argv)
+{
+	t_all	*all;
+
+	all = malloc(sizeof(t_all));
+	if (!all)
+		return (0);
+	check_args(argc, argv, all);
 }
