@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:55:50 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/07 16:57:39 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:24:23 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,30 @@ void	check_args(int argc, char **argv, t_all *all)
 
 void	init_struct(int argc, char **argv, t_all *all)
 {
-	all->nbr_philos = ft_atoi(argv[1]);
-	all->time_to_die = ft_atoi(argv[2]);
-	all->time_to_eat = ft_atoi(argv[3]);
-	all->time_to_sleep = ft_atoi(argv[4]);
+	all->data = malloc(sizeof(t_data));
+	if (!all->data)
+		ft_error("Error\n", all);
+	all->data->nbr_philos = ft_atoi(argv[1]);
+	all->data->time_to_die = ft_atoi(argv[2]);
+	all->data->time_to_eat = ft_atoi(argv[3]);
+	all->data->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		all->nbr_time_to_eat = ft_atoi(argv[5]);
+		all->data->nbr_time_to_eat = ft_atoi(argv[5]);
 	else
-		all->nbr_time_to_eat = -1;
+		all->data->nbr_time_to_eat = -1;
 }
 
 void	check_values(t_all *all)
 {
-	if (!all->nbr_philos)
+	if (!all->data->nbr_philos)
 		ft_error("Error: The number of philosophers cannot be 0.\n", all);
-	if (!all->time_to_die)
+	if (!all->data->time_to_die)
 		ft_error("Error: The time to die cannot be 0.\n", all);
-	if (!all->time_to_eat)
+	if (!all->data->time_to_eat)
 		ft_error("Error: The time to eat cannot be 0.\n", all);
-	if (!all->time_to_sleep)
+	if (!all->data->time_to_sleep)
 		ft_error("Error: The time to sleep cannot be 0.\n", all);
-	if (!all->nbr_time_to_eat)
+	if (!all->data->nbr_time_to_eat)
 		ft_error("Error:  The number of times a philosopher must eat cannot be 0.\n",
 			all);
 }

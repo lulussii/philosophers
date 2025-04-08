@@ -3,27 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 13:05:02 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/07 16:58:53 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:51:20 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* ----- LIBRARIES ----- */
+
 #include <pthread.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdio.h>
 
 /* ----- STRUCTURE ----- */
 
-typedef struct s_all
+typedef struct s_data
 {
-	int	nbr_philos;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	nbr_time_to_eat;
+	int			nbr_philos;
+	int			time_to_die;
+	int			time_to_eat;
+	int			time_to_sleep;
+	int			nbr_time_to_eat;
+}				t_data;
+
+typedef struct s_philo
+{
+	int	id;
+	t_data	*data;
+}				t_philo;
+
+
+typedef	struct s_all
+{
+	t_data		*data;
+	t_philo		*philos;
+	pthread_t	*threads;
 }				t_all;
 
 /* ----- UTILS.C ----- */
@@ -31,7 +47,6 @@ typedef struct s_all
 int		ft_digit(char *str);
 void	ft_putstr(char *str);
 int		ft_atoi(char *str);
-
 
 /* ----- PARSING.C ----- */
 
