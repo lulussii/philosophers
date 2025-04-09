@@ -1,12 +1,14 @@
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g -Iinclude
 SRC_DIR = src
 HEADER_DIR = include
 HEADER = $(HEADER_DIR)/philo.h
 SRC = $(SRC_DIR)/philo.c\
 	$(SRC_DIR)/utils.c\
-	$(SRC_DIR)/parsing.c
+	$(SRC_DIR)/parsing.c\
+	$(SRC_DIR)/errors.c\
+	$(SRC_DIR)/inits.c\
 
 OBJ_DIR = objs
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

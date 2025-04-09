@@ -6,11 +6,11 @@
 /*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:55:50 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/08 16:24:23 by lulussi          ###   ########.fr       */
+/*   Updated: 2025/04/09 10:16:44 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "philo.h"
 
 void	check_args(int argc, char **argv, t_all *all)
 {
