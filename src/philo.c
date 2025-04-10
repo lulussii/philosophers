@@ -3,40 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 13:04:24 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/09 18:01:47 by lulussi          ###   ########.fr       */
+/*   Updated: 2025/04/10 16:02:01 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	take_forks(t_philo *philos)
-{
-	if (philos->id % 2 == 0)
-	{
-		pthread_mutex_lock(philos->right_fork);
-		printf("-- Philo n°%i a pris la fourchette droite n°%p\n", philos->id, philos->right_fork);
-		pthread_mutex_lock(philos->left_fork);
-		printf("-- Philo n°%i a pris la fourchette gauche n°%p\n", philos->id, philos->left_fork);
-	}
-	if (philos->id % 2 != 0)
-	{
-		pthread_mutex_lock(philos->left_fork);
-		printf("-- Philo n°%i a pris la fourchette gauche n°%p\n", philos->id, philos->left_fork);
-		pthread_mutex_lock(philos->right_fork);
-		printf("-- Philo n°%i a pris la fourchette droite n°%p\n", philos->id, philos->right_fork);
-	}
-	printf("Le philosophe n°%i est en train de manger\n", philos->id);
-}
 
 void	*routine(void *arg)
 {
 	t_philo *philos = (t_philo *)arg;
 	take_forks(philos);
 	//printf("philo : %i, fourchette gauche %p, fourchette droite %p\n", philos->id, philos->left_fork, philos->right_fork);
-	usleep(100);
 	return (0);
 }
 
@@ -62,14 +42,32 @@ void	allocate_ressources(t_all *all)
     }
 }
 
+long	timestamps(t_all *all)
+{
+	long			milliseconds;
+	struct timeval	actual;
+
+	gettimeofday(&actual, NULL);
+	milliseconds = (actual.tv_sec - all->start_time) * 1000;
+	
+	return (milliseconds);
+}
+
 int	main(int argc, char **argv)
 {
-	t_all	*all;
+	t_all			*all;
+	struct timeval	start;
+	long			seconds;
+
 
 	all = malloc(sizeof(t_all));
 	if (!all)
 		return (0);
+	all->start_time = gettimeofday(&start, NULL);
+	sleep(2);
+	seconds = timestamps(all);
+	printf("secondes %ld\n", seconds);
 	check_args(argc, argv, all);
 	allocate_ressources(all);
-	init_philos(all);
+	//init_philos(all);
 }

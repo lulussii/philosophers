@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 13:05:02 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/09 13:40:05 by lulussi          ###   ########.fr       */
+/*   Updated: 2025/04/10 16:01:28 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 #include <pthread.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <stdio.h>
+#include <sys/time.h>
+#include <unistd.h>
 
 /* ----- STRUCTURE ----- */
 
@@ -38,6 +39,7 @@ typedef struct s_philo
 
 typedef struct s_all
 {
+	long			start_time;
 	t_data			*data;
 	t_philo			*philos;
 	pthread_t		*threads;
@@ -59,6 +61,7 @@ void	check_values(t_all *all);
 /* ----- PHILO.C ----- */
 
 void	*routine(void *arg);
+void	allocate_ressources(t_all *all);
 
 /* ----- ERRORS.C ----- */
 
@@ -68,3 +71,9 @@ void	ft_error(char *str, t_all *all);
 
 void	init_forks(t_all *all);
 void	init_philos(t_all *all);
+
+/* ----- ROUTINE.C ----- */
+
+void	take_forks(t_philo *philos);
+void	time_to_eat(t_philo *philos);
+void	put_forks(t_philo *philos);

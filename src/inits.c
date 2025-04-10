@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:32:26 by lulussi           #+#    #+#             */
-/*   Updated: 2025/04/09 18:01:30 by lulussi          ###   ########.fr       */
+/*   Updated: 2025/04/10 14:21:39 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	init_philos(t_all *all)
 		all->philos[i].data = all->data;
         init_forks(all);
 		pthread_create(&all->threads[i], NULL, routine, &all->philos[i]);
+		pthread_join(all->threads[i], NULL);
 		i++;
 	}
 }

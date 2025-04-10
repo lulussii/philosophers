@@ -9,6 +9,7 @@ SRC = $(SRC_DIR)/philo.c\
 	$(SRC_DIR)/parsing.c\
 	$(SRC_DIR)/errors.c\
 	$(SRC_DIR)/inits.c\
+	$(SRC_DIR)/routine.c\
 
 OBJ_DIR = objs
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
