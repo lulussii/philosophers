@@ -6,26 +6,26 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:32:26 by lulussi           #+#    #+#             */
-/*   Updated: 2025/04/10 14:21:39 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:13:35 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void    init_forks(t_all *all)
+void	init_forks(t_all *all)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (i < all->data->nbr_philos)
-    {
-        all->philos[i].right_fork = &all->forks[i];
-        if (i == all->data->nbr_philos - 1)
-            all->philos[i].left_fork = &all->forks[0];
-        else 
-            all->philos[i].left_fork = &all->forks[i + 1];
-        i++;
-    }
+	i = 0;
+	while (i < all->data->nbr_philos)
+	{
+		all->philos[i].right_fork = &all->forks[i];
+		if (i == all->data->nbr_philos - 1)
+			all->philos[i].left_fork = &all->forks[0];
+		else
+			all->philos[i].left_fork = &all->forks[i + 1];
+		i++;
+	}
 }
 
 void	init_philos(t_all *all)
@@ -40,10 +40,11 @@ void	init_philos(t_all *all)
 	while (i < all->data->nbr_philos)
 	{
 		all->philos[i].id = i + 1;
+		all->philos[i].is_dead = 0;
 		all->philos[i].data = all->data;
-        init_forks(all);
+		all->philos[i].all = all;
+		init_forks(all);
 		pthread_create(&all->threads[i], NULL, routine, &all->philos[i]);
-		pthread_join(all->threads[i], NULL);
 		i++;
 	}
 }

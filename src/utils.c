@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:56:16 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/09 14:06:46 by lulussi          ###   ########.fr       */
+/*   Updated: 2025/04/14 18:02:40 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	ft_putstr(char *str)
 	}
 }
 
-int	ft_atoi(char *str)
+long	ft_atoi(char *str)
 {
 	int	i;
-	int	temp;
+	long	temp;
 	int	sign;
 
 	i = 0;
@@ -62,5 +62,7 @@ int	ft_atoi(char *str)
 		temp = temp * 10 + str[i] - '0';
 		i++;
 	}
+	if (temp > INT_MAX || temp < INT_MIN)
+		return (-1);
 	return (temp * sign);
 }

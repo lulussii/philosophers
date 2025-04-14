@@ -3,18 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:16:03 by lulussi           #+#    #+#             */
-/*   Updated: 2025/04/09 10:16:21 by lulussi          ###   ########.fr       */
+/*   Updated: 2025/04/14 17:05:40 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+void	free_all(t_all *all)
+{
+	if (all->data)
+		free(all->data);
+	if (all->threads)
+		free(all->threads);
+	free(all);
+}
+
 void	ft_error(char *str, t_all *all)
 {
 	ft_putstr(str);
-	free(all);
+	free_all(all);
 	exit(1);
 }

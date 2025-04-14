@@ -3,7 +3,9 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra -g -Iinclude
 SRC_DIR = src
 HEADER_DIR = include
-HEADER = $(HEADER_DIR)/philo.h
+HEADER = $(HEADER_DIR)/philo.h\
+		$(HEADER_DIR)/all.h\
+		$(HEADER_DIR)/data.h
 SRC = $(SRC_DIR)/philo.c\
 	$(SRC_DIR)/utils.c\
 	$(SRC_DIR)/parsing.c\
@@ -15,9 +17,9 @@ OBJ_DIR = objs
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 # Couleurs
-GREEN = \033[38;5;183m
-YELLOW = \033[38;5;117m
-BLUE = \033[38;5;205m
+GREEN = \033[38;5;198m 
+YELLOW = \033[38;5;176m
+BLUE = \033[38;5;182m
 RESET = \033[0m
 
 # Comptage des fichiers
@@ -49,9 +51,9 @@ all: $(NAME)
 
 $(NAME): $(OBJ) Makefile
 	$(call complete_progress)
-	@echo "$(GREEN)Création de la bibliothèque $(NAME)...$(RESET)"
+	@echo "$(GREEN)Création de l'executable $(NAME)...$(RESET)"
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) 
-	@echo "$(GREEN)Bibliothèque $(NAME) créée !$(RESET)"
+	@echo "$(GREEN)Executable $(NAME) créée !$(RESET)"
 
 clean:
 	@echo "$(YELLOW)Suppression des fichiers objets...$(RESET)"

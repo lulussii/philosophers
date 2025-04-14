@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:55:50 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/10 14:14:50 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:58:39 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ void	check_args(int argc, char **argv, t_all *all)
 
 void	init_struct(int argc, char **argv, t_all *all)
 {
+	int	i;
+
+	i = 0;
 	all->data = malloc(sizeof(t_data));
 	if (!all->data)
 		ft_error("Error\n", all);
@@ -38,8 +41,15 @@ void	init_struct(int argc, char **argv, t_all *all)
 	all->data->time_to_die = ft_atoi(argv[2]);
 	all->data->time_to_eat = ft_atoi(argv[3]);
 	all->data->time_to_sleep = ft_atoi(argv[4]);
+	if (all->data->nbr_philos == -1 || all->data->time_to_die == -1
+		|| all->data->time_to_eat == -1 || all->data->time_to_sleep == -1)
+		ft_error("Error : One number seems longer than the int max\n", all);
 	if (argc == 6)
+	{
 		all->data->nbr_time_to_eat = ft_atoi(argv[5]);
+		if (all->data->nbr_time_to_eat == -1)
+			ft_error("Error : One number seems longer than the int max\n", all);
+	}
 	else
 		all->data->nbr_time_to_eat = -1;
 }
@@ -55,6 +65,5 @@ void	check_values(t_all *all)
 	if (!all->data->time_to_sleep)
 		ft_error("Error: The time to sleep cannot be 0.\n", all);
 	if (!all->data->nbr_time_to_eat)
-		ft_error("Error:  The number of times a philosopher must eat cannot be 0.\n",
-			all);
+		ft_error("Error: The number of meals cannot be 0.\n", all);
 }

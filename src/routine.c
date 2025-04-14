@@ -6,11 +6,22 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 14:25:24 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/10 14:32:24 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:18:57 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	time_to_think(t_philo *philos)
+{
+	printf("%li %i is thinking\n", timestamps(philos->all), philos->id);
+}
+
+void	time_to_sleep(t_philo *philos)
+{
+	printf("%li %i is sleeping\n", timestamps(philos->all), philos->id);
+	usleep(philos->data->time_to_sleep * 1000);
+}
 
 void	put_forks(t_philo *philos)
 {
@@ -20,9 +31,9 @@ void	put_forks(t_philo *philos)
 
 void	time_to_eat(t_philo *philos)
 {
-	printf("Le philosophe n°%i est en train de manger\n", philos->id);
-	usleep(philos->data->time_to_eat);
-	put_forks(philos);
+	philos->last_meal = timestamps(philos->all);
+	printf("%li %i is eating\n", timestamps(philos->all), philos->id);
+	usleep(philos->data->time_to_eat * 1000);
 }
 
 void	take_forks(t_philo *philos)
@@ -30,17 +41,19 @@ void	take_forks(t_philo *philos)
 	if (philos->id % 2 == 0)
 	{
 		pthread_mutex_lock(philos->right_fork);
-		printf("-- Philo n°%i a pris la fourchette droite n°%p\n", philos->id, philos->right_fork);
+		printf("%li %i has taken a fork\n", timestamps(philos->all),
+			philos->id);
 		pthread_mutex_lock(philos->left_fork);
-		printf("-- Philo n°%i a pris la fourchette gauche n°%p\n", philos->id, philos->left_fork);
+		printf("%li %i has taken a fork\n", timestamps(philos->all),
+			philos->id);
 	}
 	if (philos->id % 2 != 0)
 	{
 		pthread_mutex_lock(philos->left_fork);
-		printf("-- Philo n°%i a pris la fourchette gauche n°%p\n", philos->id, philos->left_fork);
+		printf("%li %i has taken a fork\n", timestamps(philos->all),
+			philos->id);
 		pthread_mutex_lock(philos->right_fork);
-		printf("-- Philo n°%i a pris la fourchette droite n°%p\n", philos->id, philos->right_fork);
+		printf("%li %i has taken a fork\n", timestamps(philos->all),
+			philos->id);
 	}
-	time_to_eat(philos);
 }
-
