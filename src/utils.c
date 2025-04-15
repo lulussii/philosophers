@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:56:16 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/14 18:02:40 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:50:11 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	ft_putstr(char *str)
 
 long	ft_atoi(char *str)
 {
-	int	i;
+	int		i;
 	long	temp;
-	int	sign;
+	int		sign;
 
 	i = 0;
 	temp = 0;

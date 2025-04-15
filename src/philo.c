@@ -6,20 +6,38 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 13:04:24 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/14 18:23:58 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:50:33 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*death(t_philo	philo)
+void	*check_last_meal(void *arg)
 {
-	struct timeval	actual;
-	long			actual_time_in_ms;
-	
-	gettimeofday(&actual, NULL);	
-	actual_time_in_ms = (actual.tv_sec * 1000) + (actual.tv_usec / 1000);
-	if (actual_time_in_ms - all->philos)
+	t_all	*all;
+	int		i;
+	long	check_death;
+
+	all = (t_all *)arg;
+	i = 0;
+	check_death = 0;
+	while (all->simulation_active)
+	{
+		while (i < all->data->nbr_philos)
+		{
+			pthread_mutex_lock(&all->philos[i].meal_mutex);
+			check_death = time_diff_ms(all->philos[i].last_meal);
+			pthread_mutex_unlock(&all->philos[i].meal_mutex);
+			if (check_death <= 0)
+			{
+				printf("PHILO MORT\n");
+				exit(1);
+			}
+			i++;
+		}
+		usleep(1000);
+	}
+	return (0);
 }
 
 void	*routine(void *arg)
@@ -60,14 +78,14 @@ void	allocate_ressources(t_all *all)
 	}
 }
 
-long	timestamps(t_all *all)
+long	time_diff_ms(struct timeval t1)
 {
 	long			milliseconds;
 	struct timeval	actual;
 
 	gettimeofday(&actual, NULL);
-	milliseconds = ((actual.tv_sec * 1000 + actual.tv_usec / 1000)
-			- (all->start_time.tv_sec * 1000 + all->start_time.tv_usec / 1000));
+	milliseconds = ((actual.tv_sec * 1000 + actual.tv_usec / 1000) - (t1.tv_sec
+				* 1000 + t1.tv_usec / 1000));
 	return (milliseconds);
 }
 
@@ -79,10 +97,11 @@ int	main(int argc, char **argv)
 	if (!all)
 		return (0);
 	memset(all, 0, sizeof(t_all));
+	all->simulation_active = 1;
 	gettimeofday(&all->start_time, NULL);
 	check_args(argc, argv, all);
 	allocate_ressources(all);
-	init_philos(all);
+	start_simulation(all);
 	while (1)
 		pause();
 }
