@@ -6,11 +6,14 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:56:16 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/15 17:50:11 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:31:06 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "functions.h"
+#include <limits.h>
+#include <unistd.h>
+#include <stdio.h>
 
 int	ft_digit(char *str)
 {
@@ -65,4 +68,23 @@ long	ft_atoi(char *str)
 	if (temp > INT_MAX || temp < INT_MIN)
 		return (-1);
 	return (temp * sign);
+}
+
+long	time_diff_ms(struct timeval t1)
+{
+	long			milliseconds;
+	struct timeval	actual;
+
+	gettimeofday(&actual, NULL);
+	milliseconds = ((actual.tv_sec * 1000 + actual.tv_usec / 1000) - (t1.tv_sec
+				* 1000 + t1.tv_usec / 1000));
+	return (milliseconds);
+}
+
+void	safe_print(t_philo *philos, char *task)
+{
+	pthread_mutex_lock(&philos->all->print);
+	printf("%li %i %s\n", time_diff_ms(philos->all->start_time), philos->id,
+		task);
+	pthread_mutex_unlock(&philos->all->print);		
 }

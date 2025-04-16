@@ -5,13 +5,16 @@ SRC_DIR = src
 HEADER_DIR = include
 HEADER = $(HEADER_DIR)/philo.h\
 		$(HEADER_DIR)/all.h\
-		$(HEADER_DIR)/data.h
-SRC = $(SRC_DIR)/philo.c\
+		$(HEADER_DIR)/data.h\
+		$(HEADER_DIR)/utils.h
+
+SRC = $(SRC_DIR)/main.c\
 	$(SRC_DIR)/utils.c\
 	$(SRC_DIR)/parsing.c\
 	$(SRC_DIR)/errors.c\
 	$(SRC_DIR)/inits.c\
 	$(SRC_DIR)/routine.c\
+	$(SRC_DIR)/simulation.c
 
 OBJ_DIR = objs
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

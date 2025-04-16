@@ -5,12 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 13:32:26 by lulussi           #+#    #+#             */
-/*   Updated: 2025/04/15 17:50:03 by lserodon         ###   ########.fr       */
+/*   Created: 2025/04/16 15:58:19 by lserodon          #+#    #+#             */
+/*   Updated: 2025/04/16 16:09:16 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "functions.h"
+#include <stdlib.h>
 
 void	init_forks(t_all *all)
 {
@@ -45,18 +46,26 @@ void	init_philos(t_all *all)
 	}
 }
 
-void	start_simulation(t_all *all)
+void	allocate_ressources(t_all *all)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	all->philos = malloc(sizeof(t_philo) * all->data->nbr_philos);
-	all->threads = malloc(sizeof(pthread_t) * all->data->nbr_philos);
-	if (!all->philos || !all->threads)
+	if (!all->philos)
 		ft_error("Error\n", all);
-	init_philos(all);
-	init_forks(all);
-	while (++i < all->data->nbr_philos)
-		pthread_create(&all->threads[i], NULL, routine, &all->philos[i]);
-	pthread_create(&all->monitor, NULL, check_last_meal, all);
+	all->threads = malloc(sizeof(pthread_t) * all->data->nbr_philos);
+	if (!all->threads)
+		ft_error("Error\n", all);
+	all->forks = malloc(sizeof(pthread_mutex_t) * all->data->nbr_philos);
+	if (!all->forks)
+		ft_error("Error\n", all);
+	while (i < all->data->nbr_philos)
+	{
+		if (pthread_mutex_init(&all->forks[i], NULL) != 0)
+			ft_error("Error\n", all);
+		i++;
+	}
 }
+
+

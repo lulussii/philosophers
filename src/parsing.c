@@ -6,28 +6,12 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:55:50 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/14 16:58:39 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:40:02 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
-
-void	check_args(int argc, char **argv, t_all *all)
-{
-	int	i;
-
-	i = 1;
-	if (argc != 5 && argc != 6)
-		ft_error("Error: Wrong number of arguments\n", all);
-	while (i < argc)
-	{
-		if (!ft_digit(argv[i]))
-			ft_error("Error : Wrong type of arguments\n", all);
-		i++;
-	}
-	init_struct(argc, argv, all);
-	check_values(all);
-}
+#include "functions.h"
+#include <stdlib.h>
 
 void	init_struct(int argc, char **argv, t_all *all)
 {
@@ -43,12 +27,12 @@ void	init_struct(int argc, char **argv, t_all *all)
 	all->data->time_to_sleep = ft_atoi(argv[4]);
 	if (all->data->nbr_philos == -1 || all->data->time_to_die == -1
 		|| all->data->time_to_eat == -1 || all->data->time_to_sleep == -1)
-		ft_error("Error : One number seems longer than the int max\n", all);
+		ft_error("Error : Invalid integer format\n", all);
 	if (argc == 6)
 	{
 		all->data->nbr_time_to_eat = ft_atoi(argv[5]);
 		if (all->data->nbr_time_to_eat == -1)
-			ft_error("Error : One number seems longer than the int max\n", all);
+			ft_error("Error : Invalid integer format\n", all);
 	}
 	else
 		all->data->nbr_time_to_eat = -1;
@@ -66,4 +50,21 @@ void	check_values(t_all *all)
 		ft_error("Error: The time to sleep cannot be 0.\n", all);
 	if (!all->data->nbr_time_to_eat)
 		ft_error("Error: The number of meals cannot be 0.\n", all);
+}
+
+void	check_args(int argc, char **argv, t_all *all)
+{
+	int	i;
+
+	i = 1;
+	if (argc != 5 && argc != 6)
+		ft_error("Error: Wrong number of arguments\n", all);
+	while (i < argc)
+	{
+		if (!ft_digit(argv[i]))
+			ft_error("Error : Wrong type of arguments\n", all);
+		i++;
+	}
+	init_struct(argc, argv, all);
+	check_values(all);
 }
