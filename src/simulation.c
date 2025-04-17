@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 16:08:30 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/16 16:46:35 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/17 18:18:00 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,13 @@ void	*check_last_meal(void *arg)
 			if (check_death >= all->data->time_to_die)
 			{
 				safe_print(&all->philos[i], "died");
-				free_all(all);
-				exit(1);
+				all->simulation_active = 0;
 			}
 			i++;
 		}
 		usleep(1000);
 	}
-	return (0);
+	return (NULL);
 }
 
 void	*routine(void *arg)
@@ -49,15 +48,20 @@ void	*routine(void *arg)
 	t_philo	*philos;
 
 	philos = (t_philo *)arg;
-	while (!philos->is_dead)
+	while (philos->all->simulation_active)
 	{
-		take_forks(philos);
-		time_to_eat(philos);
-		put_forks(philos);
-		time_to_sleep(philos);
-		time_to_think(philos);
+		if(philos->all->simulation_active)
+			take_forks(philos);
+		if(philos->all->simulation_active)
+			time_to_eat(philos);
+		if(philos->all->simulation_active)
+			put_forks(philos);
+		if(philos->all->simulation_active)
+			time_to_sleep(philos);
+		if(philos->all->simulation_active)
+			time_to_think(philos);
 	}
-	return (0);
+	return (NULL);
 }
 
 void	start_simulation(t_all *all)
@@ -65,13 +69,13 @@ void	start_simulation(t_all *all)
 	int	i;
 
 	i = -1;
-	all->philos = malloc(sizeof(t_philo) * all->data->nbr_philos);
-	all->threads = malloc(sizeof(pthread_t) * all->data->nbr_philos);
-	if (!all->philos || !all->threads)
-		ft_error("Error\n", all);
 	init_philos(all);
 	init_forks(all);
 	while (++i < all->data->nbr_philos)
+	{
 		pthread_create(&all->threads[i], NULL, routine, &all->philos[i]);
+		pthread_detach(all->threads[i]);
+	}
 	pthread_create(&all->monitor, NULL, check_last_meal, all);
+	pthread_join(all->monitor, NULL);
 }

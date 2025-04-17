@@ -11,7 +11,7 @@ HEADER = $(HEADER_DIR)/philo.h\
 SRC = $(SRC_DIR)/main.c\
 	$(SRC_DIR)/utils.c\
 	$(SRC_DIR)/parsing.c\
-	$(SRC_DIR)/errors.c\
+	$(SRC_DIR)/free_and_errors.c\
 	$(SRC_DIR)/inits.c\
 	$(SRC_DIR)/routine.c\
 	$(SRC_DIR)/simulation.c

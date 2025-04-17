@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 13:04:24 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/16 16:25:50 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/17 18:05:01 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ int	main(int argc, char **argv)
 	check_args(argc, argv, all);
 	allocate_ressources(all);
 	start_simulation(all);
-	while (1)
-		pause();
+	free_all(all);
 }

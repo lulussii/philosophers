@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:56:16 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/16 16:31:06 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/17 18:08:21 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ long	time_diff_ms(struct timeval t1)
 void	safe_print(t_philo *philos, char *task)
 {
 	pthread_mutex_lock(&philos->all->print);
-	printf("%li %i %s\n", time_diff_ms(philos->all->start_time), philos->id,
-		task);
+	if (philos->all->simulation_active)
+		printf("%li %i %s\n", time_diff_ms(philos->all->start_time), philos->id,
+			task);
 	pthread_mutex_unlock(&philos->all->print);		
 }
