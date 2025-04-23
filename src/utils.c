@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:56:16 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/17 18:08:21 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/18 14:22:33 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,10 @@ long	time_diff_ms(struct timeval t1)
 void	safe_print(t_philo *philos, char *task)
 {
 	pthread_mutex_lock(&philos->all->print);
+	pthread_mutex_lock(&philos->all->simulation);
 	if (philos->all->simulation_active)
 		printf("%li %i %s\n", time_diff_ms(philos->all->start_time), philos->id,
 			task);
-	pthread_mutex_unlock(&philos->all->print);		
+	pthread_mutex_unlock(&philos->all->simulation);
+	pthread_mutex_unlock(&philos->all->print);
 }

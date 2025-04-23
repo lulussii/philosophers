@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 13:04:24 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/17 18:05:01 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/18 14:34:09 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ int	main(int argc, char **argv)
 	if (!all)
 		return (0);
 	memset(all, 0, sizeof(t_all));
-	all->simulation_active = 1;
-	pthread_mutex_init(&all->print, NULL);
 	gettimeofday(&all->start_time, NULL);
 	check_args(argc, argv, all);
 	allocate_ressources(all);

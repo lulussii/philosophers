@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:58:19 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/16 17:55:26 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:28:05 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	init_philos(t_all *all)
 		all->philos[i].all = all;
 		all->philos[i].last_meal = all->start_time;
 		pthread_mutex_init(&all->philos[i].meal_mutex, NULL);
+		all->philos[i].meal_count = all->data->nbr_time_to_eat;
 		i++;
 	}
 }
@@ -51,6 +52,11 @@ void	allocate_ressources(t_all *all)
 	int	i;
 
 	i = 0;
+	all->simulation_active = 1;
+	all->max_meals = 0;
+	pthread_mutex_init(&all->simulation, NULL);
+	pthread_mutex_init(&all->print, NULL);
+	pthread_mutex_init(&all->mutex_max_meals, NULL);
 	all->philos = malloc(sizeof(t_philo) * all->data->nbr_philos);
 	if (!all->philos)
 		ft_error("Error\n", all);
@@ -67,5 +73,3 @@ void	allocate_ressources(t_all *all)
 		i++;
 	}
 }
-
-

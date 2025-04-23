@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:55:50 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/16 16:40:02 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/18 08:59:18 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 void	init_struct(int argc, char **argv, t_all *all)
 {
-	int	i;
-
-	i = 0;
 	all->data = malloc(sizeof(t_data));
 	if (!all->data)
 		ft_error("Error\n", all);

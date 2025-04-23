@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 14:25:24 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/16 16:33:12 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:51:05 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,17 @@ void	time_to_eat(t_philo *philos)
 	gettimeofday(&philos->last_meal, NULL);
 	pthread_mutex_unlock(&philos->meal_mutex);
 	safe_print(philos, "is eating");
+	if (philos->data->nbr_time_to_eat > -1)
+	{
+		philos->meal_count--;
+		if (philos->meal_count == 0)
+		{	
+			pthread_mutex_lock(&philos->all->mutex_max_meals);
+			philos->all->max_meals++;
+			printf("%i\n", philos->all->max_meals);
+			pthread_mutex_unlock(&philos->all->mutex_max_meals);
+		}
+	}
 	usleep(philos->data->time_to_eat * 1000);
 }
 

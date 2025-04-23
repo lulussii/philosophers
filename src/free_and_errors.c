@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_and_errors.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:16:03 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/17 17:40:05 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/18 08:59:29 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@
 
 void	free_all(t_all *all)
 {
-	int	i;
-
-	i = -1;
 	if (all->threads)
 		free(all->threads);
 	if (all->forks)

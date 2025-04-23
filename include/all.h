@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   all.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 13:42:51 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/16 16:24:58 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:16:08 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,15 @@ typedef struct s_all
 {
 	struct timeval		start_time;
 	int					simulation_active;
-	t_data				*data;
-	t_philo				*philos;
+	pthread_mutex_t		simulation;
+	int					max_meals;
+	pthread_mutex_t		mutex_max_meals;
 	pthread_t			*threads;
 	pthread_t			monitor;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		print;
+	t_data				*data;
+	t_philo				*philos;
 }						t_all;
 
 #endif
