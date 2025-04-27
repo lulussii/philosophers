@@ -6,7 +6,7 @@
 /*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 14:25:24 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/27 16:08:58 by lulussi          ###   ########.fr       */
+/*   Updated: 2025/04/27 22:59:13 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	time_to_sleep(t_philo *philos)
 
 void	put_forks(t_philo *philos)
 {
+	pthread_mutex_lock(philos->mutex_right_fork);
+	pthread_mutex_lock(philos->mutex_left_fork);
 	*(philos->right_fork) = 0;
 	*(philos->left_fork) = 0;
 	pthread_mutex_unlock(philos->mutex_left_fork);
@@ -54,57 +56,25 @@ void	time_to_eat(t_philo *philos)
 
 void take_forks(t_philo *philos)
 {
-    int forks_taken;
-    pthread_mutex_t *first_mutex;
-    pthread_mutex_t *second_mutex;
-    int *first_fork;
-    int *second_fork;
-    
-    forks_taken = 0;
-    
-    // Déterminer l'ordre des mutex
-    if (philos->mutex_left_fork < philos->mutex_right_fork)
-    {
-        first_mutex = philos->mutex_left_fork;
-        second_mutex = philos->mutex_right_fork;
-        first_fork = philos->left_fork;
-        second_fork = philos->right_fork;
-    }
-    else
-    {
-        first_mutex = philos->mutex_right_fork;
-        second_mutex = philos->mutex_left_fork;
-        first_fork = philos->right_fork;
-        second_fork = philos->left_fork;
-    }
-    
+    int forks_taken = 0;
+
     while (!forks_taken)
     {
-        pthread_mutex_lock(first_mutex);
-        if (*first_fork == 0)
+        pthread_mutex_lock(philos->mutex_right_fork);
+        pthread_mutex_lock(philos->mutex_left_fork);
+
+        if (*(philos->right_fork) == 0 && *(philos->left_fork) == 0)
         {
-            pthread_mutex_lock(second_mutex);
-            if (*second_fork == 0)
-            {
-                *first_fork = 1;
-                *second_fork = 1;
-                forks_taken = 1;
-                safe_print(philos, "has taken a fork");
-                safe_print(philos, "has taken a fork");
-            }
-            else
-            {
-                // Seconde fourchette non disponible, on libère la première et on réessaie
-                pthread_mutex_unlock(second_mutex);
-                pthread_mutex_unlock(first_mutex);
-                usleep(100);
-            }
+            *(philos->right_fork) = 1;
+            *(philos->left_fork) = 1;
+            safe_print(philos, "has taken a fork");
+            safe_print(philos, "has taken a fork");
+            forks_taken = 1;
         }
-        else
-        {
-            // Première fourchette non disponible
-            pthread_mutex_unlock(first_mutex);
+        pthread_mutex_unlock(philos->mutex_left_fork);
+        pthread_mutex_unlock(philos->mutex_right_fork);
+
+        if (!forks_taken)
             usleep(100);
-        }
     }
 }
