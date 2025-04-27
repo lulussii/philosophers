@@ -6,7 +6,7 @@
 /*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 13:42:51 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/23 12:16:08 by lulussi          ###   ########.fr       */
+/*   Updated: 2025/04/26 09:21:39 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef struct s_all
 	pthread_mutex_t		mutex_max_meals;
 	pthread_t			*threads;
 	pthread_t			monitor;
-	pthread_mutex_t		*forks;
+	pthread_mutex_t		*mutex_forks;
+	int					*forks;
 	pthread_mutex_t		print;
 	t_data				*data;
 	t_philo				*philos;

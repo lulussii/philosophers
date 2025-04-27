@@ -6,7 +6,7 @@
 /*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:58:19 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/23 12:28:05 by lulussi          ###   ########.fr       */
+/*   Updated: 2025/04/27 15:13:45 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@ void	init_forks(t_all *all)
 	i = 0;
 	while (i < all->data->nbr_philos)
 	{
+		all->philos[i].mutex_right_fork = &all->mutex_forks[i];
+		all->philos[i].mutex_left_fork = &all->mutex_forks[(i + 1) % all->data->nbr_philos];
 		all->philos[i].right_fork = &all->forks[i];
-		if (i == all->data->nbr_philos - 1)
-			all->philos[i].left_fork = &all->forks[0];
-		else
-			all->philos[i].left_fork = &all->forks[i + 1];
+		all->philos[i].left_fork = &all->forks[(i + 1) % all->data->nbr_philos];
 		i++;
 	}
 }
@@ -57,19 +56,27 @@ void	allocate_ressources(t_all *all)
 	pthread_mutex_init(&all->simulation, NULL);
 	pthread_mutex_init(&all->print, NULL);
 	pthread_mutex_init(&all->mutex_max_meals, NULL);
+	all->forks = malloc(sizeof(int) * all->data->nbr_philos);
+	if (!all->forks)
+		ft_error("Error\n", all);
+	while (i < all->data->nbr_philos)
+	{
+		all->forks[i] = 0;
+		i++;
+	}
 	all->philos = malloc(sizeof(t_philo) * all->data->nbr_philos);
 	if (!all->philos)
 		ft_error("Error\n", all);
 	all->threads = malloc(sizeof(pthread_t) * all->data->nbr_philos);
 	if (!all->threads)
 		ft_error("Error\n", all);
-	all->forks = malloc(sizeof(pthread_mutex_t) * all->data->nbr_philos);
-	if (!all->forks)
+	all->mutex_forks = malloc(sizeof(pthread_mutex_t) * all->data->nbr_philos);
+	if (!all->mutex_forks)
 		ft_error("Error\n", all);
-	while (i < all->data->nbr_philos)
+	i = -1;
+	while (++i < all->data->nbr_philos)
 	{
-		if (pthread_mutex_init(&all->forks[i], NULL) != 0)
+		if (pthread_mutex_init(&all->mutex_forks[i], NULL) != 0)
 			ft_error("Error\n", all);
-		i++;
 	}
 }

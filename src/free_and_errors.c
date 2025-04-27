@@ -6,7 +6,7 @@
 /*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:16:03 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/18 08:59:29 by lulussi          ###   ########.fr       */
+/*   Updated: 2025/04/26 11:13:00 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	free_all(t_all *all)
 		free(all->data);
 	if (all->philos)
 		free(all->philos);
+	if (all->mutex_forks)
+		free(all->mutex_forks);
 	free(all);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 16:08:30 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/23 12:51:49 by lulussi          ###   ########.fr       */
+/*   Updated: 2025/04/27 16:31:33 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,21 @@ void	*check_last_meal(void *arg)
 				stop_simulation(all);
 			}
 			if (check_max_meals(all) == all->data->nbr_philos)
+			{	
+				pthread_mutex_lock(&all->print);
 				stop_simulation(all);
+				pthread_mutex_unlock(&all->print);
+			}
 		}
-		usleep(1000);
+		usleep(1500);
 	}
 	return (NULL);
+}
+
+void	small_routine(t_philo *philos)
+{
+	safe_print(philos, "has taken a fork");
+	usleep(philos->data->time_to_die * 1000);
 }
 
 void	*routine(void *arg)
@@ -77,6 +87,11 @@ void	*routine(void *arg)
 	t_philo	*philos;
 
 	philos = (t_philo *)arg;
+	if (philos->data->nbr_philos == 1)
+	{
+		small_routine(philos);
+		return (NULL);
+	}
 	while (check_simulation_state(philos->all))
 	{
 		take_forks(philos);
