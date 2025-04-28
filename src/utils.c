@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:56:16 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/18 14:22:33 by lulussi          ###   ########.fr       */
+/*   Updated: 2025/04/28 17:12:06 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	safe_print(t_philo *philos, char *task)
 {
 	pthread_mutex_lock(&philos->all->print);
 	pthread_mutex_lock(&philos->all->simulation);
-	if (philos->all->simulation_active)
+	if (philos->all->simulation_active && philos->meal_count != 0)
 		printf("%li %i %s\n", time_diff_ms(philos->all->start_time), philos->id,
 			task);
 	pthread_mutex_unlock(&philos->all->simulation);

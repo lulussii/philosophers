@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 16:08:30 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/27 16:31:33 by lulussi          ###   ########.fr       */
+/*   Updated: 2025/04/28 17:36:20 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
-int	check_max_meals(t_all *all)
-{
-	int	meals;
-
-	pthread_mutex_lock(&all->mutex_max_meals);
-	meals = all->max_meals;
-	pthread_mutex_unlock(&all->mutex_max_meals);
-
-	return (meals);
-}
-
-int	check_simulation_state(t_all *all)
-{
-	int	is_active;
-
-	pthread_mutex_lock(&all->simulation);
-	is_active = all->simulation_active;
-	pthread_mutex_unlock(&all->simulation);
-	return (is_active);
-}
-
-void	stop_simulation(t_all *all)
-{
-	pthread_mutex_lock(&all->simulation);
-	all->simulation_active = 0;
-	pthread_mutex_unlock(&all->simulation);
-}
 
 void	*check_last_meal(void *arg)
 {
@@ -65,21 +37,11 @@ void	*check_last_meal(void *arg)
 				stop_simulation(all);
 			}
 			if (check_max_meals(all) == all->data->nbr_philos)
-			{	
-				pthread_mutex_lock(&all->print);
 				stop_simulation(all);
-				pthread_mutex_unlock(&all->print);
-			}
 		}
 		usleep(1500);
 	}
 	return (NULL);
-}
-
-void	small_routine(t_philo *philos)
-{
-	safe_print(philos, "has taken a fork");
-	usleep(philos->data->time_to_die * 1000);
 }
 
 void	*routine(void *arg)
@@ -98,8 +60,10 @@ void	*routine(void *arg)
 		time_to_eat(philos);
 		put_forks(philos);
 		time_to_sleep(philos);
-		time_to_think(philos);
+		time_to_think(philos);	
 	}
+	if (philos->meal_count == 0)
+		return (NULL);
 	return (NULL);
 }
 

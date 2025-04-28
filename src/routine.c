@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 14:25:24 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/27 22:59:13 by lulussi          ###   ########.fr       */
+/*   Updated: 2025/04/28 14:57:31 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	time_to_sleep(t_philo *philos)
 
 void	put_forks(t_philo *philos)
 {
-	pthread_mutex_lock(philos->mutex_right_fork);
-	pthread_mutex_lock(philos->mutex_left_fork);
-	*(philos->right_fork) = 0;
+	pthread_mutex_lock(philos->forks.first_mutex);
+	pthread_mutex_lock(philos->forks.second_mutex);
 	*(philos->left_fork) = 0;
-	pthread_mutex_unlock(philos->mutex_left_fork);
-	pthread_mutex_unlock(philos->mutex_right_fork);
+	*(philos->right_fork) = 0;
+	pthread_mutex_unlock(philos->forks.second_mutex);
+	pthread_mutex_unlock(philos->forks.first_mutex);
 }
 
 void	time_to_eat(t_philo *philos)
@@ -45,7 +45,7 @@ void	time_to_eat(t_philo *philos)
 	{
 		philos->meal_count--;
 		if (philos->meal_count == 0)
-		{	
+		{
 			pthread_mutex_lock(&philos->all->mutex_max_meals);
 			philos->all->max_meals++;
 			pthread_mutex_unlock(&philos->all->mutex_max_meals);
@@ -54,27 +54,28 @@ void	time_to_eat(t_philo *philos)
 	usleep(philos->data->time_to_eat * 1000);
 }
 
-void take_forks(t_philo *philos)
+void	take_forks(t_philo *philos)
 {
-    int forks_taken = 0;
+	int	forks_taken;
 
-    while (!forks_taken)
-    {
-        pthread_mutex_lock(philos->mutex_right_fork);
-        pthread_mutex_lock(philos->mutex_left_fork);
-
-        if (*(philos->right_fork) == 0 && *(philos->left_fork) == 0)
-        {
-            *(philos->right_fork) = 1;
-            *(philos->left_fork) = 1;
-            safe_print(philos, "has taken a fork");
-            safe_print(philos, "has taken a fork");
-            forks_taken = 1;
-        }
-        pthread_mutex_unlock(philos->mutex_left_fork);
-        pthread_mutex_unlock(philos->mutex_right_fork);
-
-        if (!forks_taken)
-            usleep(100);
-    }
+	forks_taken = 0;
+	set_forks_order(philos);
+	while (!forks_taken)
+	{
+		pthread_mutex_lock(philos->forks.first_mutex);
+		pthread_mutex_lock(philos->forks.second_mutex);
+		if (*(philos->forks.second_fork) == 0
+			&& *(philos->forks.first_fork) == 0)
+		{
+			*(philos->forks.second_fork) = 1;
+			*(philos->forks.first_fork) = 1;
+			safe_print(philos, "has taken a fork");
+			safe_print(philos, "has taken a fork");
+			forks_taken = 1;
+		}
+		pthread_mutex_unlock(philos->forks.second_mutex);
+		pthread_mutex_unlock(philos->forks.first_mutex);
+		if (!forks_taken)
+			usleep(100);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:34:43 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/16 16:32:07 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/28 14:55:47 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,14 @@ void	time_to_eat(t_philo *philos);
 void	take_forks(t_philo *philos);
 
 /* ----- SIMULATION.C ----- */
+int		check_max_meals(t_all *all);
+int		check_simulation_state(t_all *all);
+void	stop_simulation(t_all *all);
 void	*check_last_meal(void *arg);
 void	*routine(void *arg);
 void	start_simulation(t_all *all);
+void	small_routine(t_philo *philos);
+void	set_forks_order(t_philo *philos);
 
 /* ----- UTILS.C ----- */
 int		ft_digit(char *str);
