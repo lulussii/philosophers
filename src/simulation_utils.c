@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 14:00:20 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/28 14:57:14 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:56:50 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	small_routine(t_philo *philos)
 
 void	set_forks_order(t_philo *philos)
 {
-	if (philos->mutex_left_fork < philos->mutex_right_fork)
+	if (philos->id % 2 == 0)
 	{
 		philos->forks.first_mutex = philos->mutex_left_fork;
 		philos->forks.second_mutex = philos->mutex_right_fork;

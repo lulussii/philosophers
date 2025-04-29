@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:34:43 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/28 14:55:47 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:39:07 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	time_to_sleep(t_philo *philos);
 void	put_forks(t_philo *philos);
 void	time_to_eat(t_philo *philos);
 void	take_forks(t_philo *philos);
+void    check_hunger(t_philo *philos);
 
 /* ----- SIMULATION.C ----- */
 int		check_max_meals(t_all *all);

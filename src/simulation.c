@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 16:08:30 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/28 17:36:20 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/29 19:29:40 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ void	*check_last_meal(void *arg)
 			pthread_mutex_lock(&all->philos[i].meal_mutex);
 			check_death = time_diff_ms(all->philos[i].last_meal);
 			pthread_mutex_unlock(&all->philos[i].meal_mutex);
-			if (check_death >= all->data->time_to_die)
+			if (check_death > all->data->time_to_die)
 			{
 				safe_print(&all->philos[i], "died");
 				stop_simulation(all);
 			}
-			if (check_max_meals(all) == all->data->nbr_philos)
-				stop_simulation(all);
 		}
-		usleep(1500);
+		if (check_max_meals(all) == all->data->nbr_philos)
+			stop_simulation(all);
+		usleep(500);
 	}
 	return (NULL);
 }
@@ -54,6 +54,8 @@ void	*routine(void *arg)
 		small_routine(philos);
 		return (NULL);
 	}
+	if (philos->id % 2 == 0)
+		usleep(philos->data->time_to_eat * 100);
 	while (check_simulation_state(philos->all))
 	{
 		take_forks(philos);
@@ -62,8 +64,6 @@ void	*routine(void *arg)
 		time_to_sleep(philos);
 		time_to_think(philos);	
 	}
-	if (philos->meal_count == 0)
-		return (NULL);
 	return (NULL);
 }
 

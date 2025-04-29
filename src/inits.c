@@ -3,26 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:58:19 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/28 16:17:01 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:24:52 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "functions.h"
 #include <stdlib.h>
 #include <string.h>
-
-void	init_tmp_forks(t_all *all)
-{
-	int	i;
-
-	i = 0;
-	while (i < all->data->nbr_philos)
-	{
-	}
-}
 
 void	init_forks(t_all *all)
 {
