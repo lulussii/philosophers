@@ -3,34 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:55:50 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/18 08:59:18 by lulussi          ###   ########.fr       */
+/*   Updated: 2025/04/30 13:47:15 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "functions.h"
 #include <stdlib.h>
 
-void	init_struct(int argc, char **argv, t_all *all)
+void	init_data(int argc, char **argv, t_all *all)
 {
 	all->data = malloc(sizeof(t_data));
 	if (!all->data)
-		ft_error("Error\n", all);
-	all->data->nbr_philos = ft_atoi(argv[1]);
-	all->data->time_to_die = ft_atoi(argv[2]);
-	all->data->time_to_eat = ft_atoi(argv[3]);
-	all->data->time_to_sleep = ft_atoi(argv[4]);
-	if (all->data->nbr_philos == -1 || all->data->time_to_die == -1
-		|| all->data->time_to_eat == -1 || all->data->time_to_sleep == -1)
-		ft_error("Error : Invalid integer format\n", all);
+		ft_error("Error: malloc failed\n", all);
+	all->data->nbr_philos = safe_atoi(argv[1], all);
+	all->data->time_to_die = safe_atoi(argv[2], all);
+	all->data->time_to_eat = safe_atoi(argv[3], all);
+	all->data->time_to_sleep = safe_atoi(argv[4], all);
 	if (argc == 6)
-	{
-		all->data->nbr_time_to_eat = ft_atoi(argv[5]);
-		if (all->data->nbr_time_to_eat == -1)
-			ft_error("Error : Invalid integer format\n", all);
-	}
+		all->data->nbr_time_to_eat = safe_atoi(argv[5], all);
 	else
 		all->data->nbr_time_to_eat = -1;
 }
@@ -53,15 +46,14 @@ void	check_args(int argc, char **argv, t_all *all)
 {
 	int	i;
 
-	i = 1;
+	i = 0;
 	if (argc != 5 && argc != 6)
 		ft_error("Error: Wrong number of arguments\n", all);
-	while (i < argc)
+	while (++i < argc)
 	{
 		if (!ft_digit(argv[i]))
 			ft_error("Error : Wrong type of arguments\n", all);
-		i++;
 	}
-	init_struct(argc, argv, all);
+	init_data(argc, argv, all);
 	check_values(all);
 }

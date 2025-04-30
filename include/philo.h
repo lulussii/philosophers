@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 13:05:02 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/28 16:16:44 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/30 15:15:40 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,11 @@ typedef struct s_philo
 	int					is_dead;
 	int					meal_count;
 	pthread_mutex_t		*mutex_right_fork;
-	int					*right_fork;
+	int					forks[2];
 	pthread_mutex_t		*mutex_left_fork;
 	int					*left_fork;
 	struct timeval		last_meal;
-	pthread_mutex_t		meal_mutex;
-	t_forks				forks;
+	pthread_mutex_t		mutex_meal;
 	t_data				*data;
 	t_all				*all;
 }						t_philo;

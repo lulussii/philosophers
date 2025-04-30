@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 14:00:20 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/29 18:56:50 by lulussi          ###   ########.fr       */
+/*   Updated: 2025/04/30 15:24:16 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,4 @@ void	small_routine(t_philo *philos)
 {
 	safe_print(philos, "has taken a fork");
 	usleep(philos->data->time_to_die * 1000);
-}
-
-void	set_forks_order(t_philo *philos)
-{
-	if (philos->id % 2 == 0)
-	{
-		philos->forks.first_mutex = philos->mutex_left_fork;
-		philos->forks.second_mutex = philos->mutex_right_fork;
-		philos->forks.first_fork = philos->left_fork;
-		philos->forks.second_fork = philos->right_fork;
-	}
-	else
-	{
-		philos->forks.first_mutex = philos->mutex_right_fork;
-		philos->forks.second_mutex = philos->mutex_left_fork;
-		philos->forks.first_fork = philos->right_fork;
-		philos->forks.second_fork = philos->left_fork;
-	}
 }

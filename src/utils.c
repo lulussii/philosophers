@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:56:16 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/28 17:12:06 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/04/30 14:09:49 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_putstr(char *str)
 		write(1, &str[i], 1);
 		i++;
 	}
+	write(1, "\n", 1);
 }
 
 long	ft_atoi(char *str)
@@ -68,6 +69,16 @@ long	ft_atoi(char *str)
 	if (temp > INT_MAX || temp < INT_MIN)
 		return (-1);
 	return (temp * sign);
+}
+
+long		safe_atoi(char *str, t_all *all)
+{
+	long res;
+
+	res = ft_atoi(str);
+	if (res == -1)
+		ft_error("Error : Invalid integer\n", all);
+	return (res);
 }
 
 long	time_diff_ms(struct timeval t1)

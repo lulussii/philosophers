@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:34:43 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/29 17:39:07 by lulussi          ###   ########.fr       */
+/*   Updated: 2025/04/30 15:21:11 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define FUNCTIONS_H
 
 # include "all.h"
+
+typedef enum e_mutex_action
+{
+	LOCK,
+	UNLOCK
+}	t_mutex_action;
 
 /* ----- ERRORS.C ----- */
 void	ft_error(char *str, t_all *all);
@@ -25,7 +31,7 @@ void	init_philos(t_all *all);
 void	allocate_ressources(t_all *all);
 
 /* ----- PARSING.C ----- */
-void	init_struct(int argc, char **argv, t_all *all);
+void	init_data(int argc, char **argv, t_all *all);
 void	check_values(t_all *all);
 void	check_args(int argc, char **argv, t_all *all);
 
@@ -46,6 +52,7 @@ void	*routine(void *arg);
 void	start_simulation(t_all *all);
 void	small_routine(t_philo *philos);
 void	set_forks_order(t_philo *philos);
+void	ft_pthread_mutex(pthread_mutex_t *mutex, t_philo *philos, t_mutex_action action);
 
 /* ----- UTILS.C ----- */
 int		ft_digit(char *str);
@@ -53,5 +60,6 @@ void	ft_putstr(char *str);
 long	ft_atoi(char *str);
 long	time_diff_ms(struct timeval t1);
 void	safe_print(t_philo *philos, char *task);
+long	safe_atoi(char *str, t_all *all);
 
 #endif
