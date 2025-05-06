@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 14:25:24 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/30 15:44:51 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/05/05 10:47:41 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,27 +44,13 @@ void	time_to_eat(t_philo *philos)
 	{
 		philos->meal_count--;
 		if (philos->meal_count == 0)
-		{ 
+		{
 			pthread_mutex_lock(&philos->all->mutex_max_meals);
 			philos->all->max_meals++;
 			pthread_mutex_unlock(&philos->all->mutex_max_meals);
 		}
 	}
 	usleep(philos->data->time_to_eat * 1000);
-}
-
-void	ft_pthread_mutex(pthread_mutex_t *mutex, t_philo *philos, t_mutex_action action)
-{
-	if (action == LOCK)
-	{	
-		if (pthread_mutex_lock(mutex))
-			ft_error("Error: Mutex lock failed", philos->all);
-	}
-	else if (action == UNLOCK)
-	{
-		if(pthread_mutex_unlock(mutex)) 
-			ft_error("Error: Mutex unlock failed", philos->all);
-	}
 }
 
 void	take_forks(t_philo *philos)

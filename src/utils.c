@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:56:16 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/30 14:09:49 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/05/05 10:55:37 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,34 +71,12 @@ long	ft_atoi(char *str)
 	return (temp * sign);
 }
 
-long		safe_atoi(char *str, t_all *all)
+long	safe_atoi(char *str, t_all *all)
 {
-	long res;
+	long	res;
 
 	res = ft_atoi(str);
 	if (res == -1)
 		ft_error("Error : Invalid integer\n", all);
 	return (res);
-}
-
-long	time_diff_ms(struct timeval t1)
-{
-	long			milliseconds;
-	struct timeval	actual;
-
-	gettimeofday(&actual, NULL);
-	milliseconds = ((actual.tv_sec * 1000 + actual.tv_usec / 1000) - (t1.tv_sec
-				* 1000 + t1.tv_usec / 1000));
-	return (milliseconds);
-}
-
-void	safe_print(t_philo *philos, char *task)
-{
-	pthread_mutex_lock(&philos->all->print);
-	pthread_mutex_lock(&philos->all->simulation);
-	if (philos->all->simulation_active && philos->meal_count != 0)
-		printf("%li %i %s\n", time_diff_ms(philos->all->start_time), philos->id,
-			task);
-	pthread_mutex_unlock(&philos->all->simulation);
-	pthread_mutex_unlock(&philos->all->print);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:58:19 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/30 15:47:32 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/05/05 10:56:54 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,14 @@ void	init_philos(t_all *all)
 	}
 }
 
-void	*ft_malloc(int size, t_all *all)
-{
-	void *res = malloc(size);
-	if (!res)
-		ft_error("Error: malloc failed", all);
-	return (res);
-}
-
 void	allocate_ressources(t_all *all)
 {
 	int	i;
 
 	i = -1;
 	all->forks = ft_malloc(sizeof(int) * all->data->nbr_philos, all);
-	all->mutex_forks = ft_malloc(sizeof(pthread_mutex_t) * all->data->nbr_philos, all);
+	all->mutex_forks = ft_malloc(sizeof(pthread_mutex_t)
+			* all->data->nbr_philos, all);
 	while (++i < all->data->nbr_philos)
 	{
 		all->forks[i] = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:34:43 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/30 15:21:11 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/05/05 10:57:31 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 typedef enum e_mutex_action
 {
 	LOCK,
-	UNLOCK
+	UNLOCK,
 }	t_mutex_action;
 
 /* ----- ERRORS.C ----- */
@@ -41,7 +41,7 @@ void	time_to_sleep(t_philo *philos);
 void	put_forks(t_philo *philos);
 void	time_to_eat(t_philo *philos);
 void	take_forks(t_philo *philos);
-void    check_hunger(t_philo *philos);
+void	check_hunger(t_philo *philos);
 
 /* ----- SIMULATION.C ----- */
 int		check_max_meals(t_all *all);
@@ -52,7 +52,8 @@ void	*routine(void *arg);
 void	start_simulation(t_all *all);
 void	small_routine(t_philo *philos);
 void	set_forks_order(t_philo *philos);
-void	ft_pthread_mutex(pthread_mutex_t *mutex, t_philo *philos, t_mutex_action action);
+void	ft_pthread_mutex(pthread_mutex_t *mutex, t_philo *philos,
+			t_mutex_action action);
 
 /* ----- UTILS.C ----- */
 int		ft_digit(char *str);
@@ -61,5 +62,6 @@ long	ft_atoi(char *str);
 long	time_diff_ms(struct timeval t1);
 void	safe_print(t_philo *philos, char *task);
 long	safe_atoi(char *str, t_all *all);
+void	*ft_malloc(int size, t_all *all);
 
 #endif

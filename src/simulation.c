@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 16:08:30 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/30 14:45:36 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/05/05 10:47:55 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	*routine(void *arg)
 		time_to_eat(philos);
 		put_forks(philos);
 		time_to_sleep(philos);
-		time_to_think(philos);	
+		time_to_think(philos);
 	}
 	return (NULL);
 }

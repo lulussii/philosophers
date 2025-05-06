@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 13:05:02 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/30 15:15:40 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/05/01 15:20:00 by lulussi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,6 @@
 # include <sys/time.h>
 
 typedef struct s_all	t_all;
-
-typedef struct s_forks
-{
-	pthread_mutex_t	*first_mutex;
-	pthread_mutex_t	*second_mutex;
-	int				*first_fork;
-	int				*second_fork;
-}					t_forks;
 
 typedef struct s_philo
 {
