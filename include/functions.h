@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:34:43 by lserodon          #+#    #+#             */
-/*   Updated: 2025/05/05 10:57:31 by lulussi          ###   ########.fr       */
+/*   Updated: 2025/05/07 14:10:35 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@ typedef enum e_mutex_action
 	UNLOCK,
 }	t_mutex_action;
 
-/* ----- ERRORS.C ----- */
+/* ----- CLEANUP.C ----- */
+void	safe_mutex_destroy(pthread_mutex_t *mutex, t_all *all);
+void	destroy_all_mutexes(t_all *all);
+void	cleanup_all_resources(t_all *all);
 void	ft_error(char *str, t_all *all);
-void	free_all(t_all *all);
 
 /* ----- INITS.C ----- */
-void	init_forks(t_all *all);
 void	init_philos(t_all *all);
-void	allocate_ressources(t_all *all);
+void	allocate_resources(t_all *all);
 
 /* ----- PARSING.C ----- */
 void	init_data(int argc, char **argv, t_all *all);
@@ -36,22 +37,20 @@ void	check_values(t_all *all);
 void	check_args(int argc, char **argv, t_all *all);
 
 /* ----- ROUTINE.C ----- */
-void	time_to_think(t_philo *philos);
-void	time_to_sleep(t_philo *philos);
-void	put_forks(t_philo *philos);
-void	time_to_eat(t_philo *philos);
-void	take_forks(t_philo *philos);
-void	check_hunger(t_philo *philos);
+void	philosopher_think(t_philo *philos);
+void	philosopher_sleep(t_philo *philos);
+void	philosopher_put_forks(t_philo *philos);
+void	philosopher_eat(t_philo *philos);
+void	philosopher_take_forks(t_philo *philos);
 
 /* ----- SIMULATION.C ----- */
 int		check_max_meals(t_all *all);
 int		check_simulation_state(t_all *all);
 void	stop_simulation(t_all *all);
-void	*check_last_meal(void *arg);
-void	*routine(void *arg);
+void	*monitor_philosophers(void *arg);
+void	*philosopher_routine(void *arg);
 void	start_simulation(t_all *all);
-void	small_routine(t_philo *philos);
-void	set_forks_order(t_philo *philos);
+void	single_philosopher_routine(t_philo *philos);
 void	ft_pthread_mutex(pthread_mutex_t *mutex, t_philo *philos,
 			t_mutex_action action);
 

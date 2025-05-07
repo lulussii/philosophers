@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 10:38:23 by lulussi           #+#    #+#             */
-/*   Updated: 2025/05/05 10:55:11 by lulussi          ###   ########.fr       */
+/*   Updated: 2025/05/07 13:34:34 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ long	time_diff_ms(struct timeval t1)
 
 void	safe_print(t_philo *philos, char *task)
 {
-	pthread_mutex_lock(&philos->all->print);
-	pthread_mutex_lock(&philos->all->simulation);
+	pthread_mutex_lock(philos->all->print);
+	pthread_mutex_lock(philos->all->simulation);
 	if (philos->all->simulation_active && philos->meal_count != 0)
 		printf("%li %i %s\n", time_diff_ms(philos->all->start_time), philos->id,
 			task);
-	pthread_mutex_unlock(&philos->all->simulation);
-	pthread_mutex_unlock(&philos->all->print);
+	pthread_mutex_unlock(philos->all->simulation);
+	pthread_mutex_unlock(philos->all->print);
 }
 
 void	*ft_malloc(int size, t_all *all)

@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 13:42:51 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/28 14:56:11 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:52:20 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ typedef struct s_philo	t_philo;
 
 typedef struct s_all
 {
-	struct timeval		start_time;
-	int					simulation_active;
-	pthread_mutex_t		simulation;
-	int					max_meals;
-	pthread_mutex_t		mutex_max_meals;
-	pthread_t			*threads;
-	pthread_t			monitor;
-	pthread_mutex_t		*mutex_forks;
 	int					*forks;
-	pthread_mutex_t		print;
+	int					max_meals;
+	int					simulation_active;
+	struct timeval		start_time;
+	pthread_mutex_t		*mutex_forks;
+	pthread_mutex_t		*mutex_max_meals;
+	pthread_mutex_t		*print;
+	pthread_mutex_t		*simulation;
+	pthread_t			monitor;
+	pthread_t			*threads;
 	t_data				*data;
 	t_philo				*philos;
 }						t_all;

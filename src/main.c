@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 13:04:24 by lserodon          #+#    #+#             */
-/*   Updated: 2025/04/30 13:05:52 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:02:15 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv)
 	memset(all, 0, sizeof(t_all));
 	gettimeofday(&all->start_time, NULL);
 	check_args(argc, argv, all);
-	allocate_ressources(all);
+	allocate_resources(all);
 	start_simulation(all);
-	free_all(all);
+	cleanup_all_resources(all);
 }

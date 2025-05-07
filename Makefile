@@ -11,13 +11,14 @@ HEADER = $(HEADER_DIR)/philo.h\
 SRC = $(SRC_DIR)/main.c\
 	$(SRC_DIR)/utils.c\
 	$(SRC_DIR)/utils_2.c\
-	$(SRC_DIR)/parsing.c\
-	$(SRC_DIR)/free_and_errors.c\
-	$(SRC_DIR)/inits.c\
+	$(SRC_DIR)/args_handler.c\
+	$(SRC_DIR)/cleanup.c\
+	$(SRC_DIR)/error.c\
 	$(SRC_DIR)/routine.c\
-	$(SRC_DIR)/simulation.c\
+	$(SRC_DIR)/setup.c\
 	$(SRC_DIR)/simulation_utils.c\
-
+	$(SRC_DIR)/simulation.c
+	
 OBJ_DIR = objs
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

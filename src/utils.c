@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lulussi <lulussi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:56:16 by lserodon          #+#    #+#             */
-/*   Updated: 2025/05/05 10:55:37 by lulussi          ###   ########.fr       */
+/*   Updated: 2025/05/07 13:26:57 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,6 @@ long	safe_atoi(char *str, t_all *all)
 
 	res = ft_atoi(str);
 	if (res == -1)
-		ft_error("Error : Invalid integer\n", all);
+		ft_error("Error : Invalid integer", all);
 	return (res);
 }
