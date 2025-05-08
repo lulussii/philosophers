@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:16:03 by lserodon          #+#    #+#             */
-/*   Updated: 2025/05/07 14:41:15 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:58:44 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,23 @@ void	destroy_all_mutexes(t_all *all)
 	}
 }
 
-void	cleanup_all_resources(t_all *all)
+void	destroy_and_free_array(pthread_mutex_t *mutex_array, t_all *all)
 {
 	int	i;
 
 	i = -1;
+	while (++i < all->data->nbr_philos)
+		safe_mutex_destroy(&mutex_array[i], all);
+	free(mutex_array);
+}
+
+void	cleanup_all_resources(t_all *all)
+{
 	destroy_all_mutexes(all);
 	if (all->mutex_forks)
-	{
-		while (++i < all->data->nbr_philos)
-		{
-			safe_mutex_destroy(&all->mutex_forks[i], all);
-		}
-		free(all->mutex_forks);
-	}
+		destroy_and_free_array(all->mutex_forks, all);
+	if (all->mutex_meal)
+		destroy_and_free_array(all->mutex_meal, all);
 	if (all->threads)
 		free(all->threads);
 	if (all->forks)
