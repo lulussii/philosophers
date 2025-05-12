@@ -18,7 +18,7 @@ SRC = $(SRC_DIR)/main.c\
 	$(SRC_DIR)/setup.c\
 	$(SRC_DIR)/simulation_utils.c\
 	$(SRC_DIR)/simulation.c
-	
+
 OBJ_DIR = objs
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
