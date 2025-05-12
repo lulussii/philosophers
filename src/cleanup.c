@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:16:03 by lserodon          #+#    #+#             */
-/*   Updated: 2025/05/12 10:19:51 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/05/12 10:28:51 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,43 +40,30 @@ void	destroy_all_mutexes(t_all *all)
 	}
 }
 
-void	free_philos(t_all *all)
+void	destroy_and_free_array(pthread_mutex_t *mutex_array, t_all *all)
 {
 	int	i;
 
 	i = -1;
 	while (++i < all->data->nbr_philos)
-	{
-		if (all->philos[i].mutex_meal)
-		{
-			safe_mutex_destroy(all->philos[i].mutex_meal, all);
-			free(all->philos[i].mutex_meal);
-		}
-	}
-	free(all->philos);
+		safe_mutex_destroy(&mutex_array[i], all);
+	free(mutex_array);
 }
 
 void	cleanup_all_resources(t_all *all)
 {
-	int	i;
-
-	i = -1;
 	destroy_all_mutexes(all);
 	if (all->mutex_forks)
-	{
-		while (++i < all->data->nbr_philos)
-		{
-			safe_mutex_destroy(&all->mutex_forks[i], all);
-		}
-		free(all->mutex_forks);
-	}
+		destroy_and_free_array(all->mutex_forks, all);
+	if (all->mutex_meal)
+		destroy_and_free_array(all->mutex_meal, all);
 	if (all->threads)
 		free(all->threads);
 	if (all->forks)
 		free(all->forks);
-	if (all->philos)
-		free_philos(all);
 	if (all->data)
 		free(all->data);
+	if (all->philos)
+		free(all->philos);
 	free(all);
 }

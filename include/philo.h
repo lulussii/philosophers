@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 13:05:02 by lserodon          #+#    #+#             */
-/*   Updated: 2025/05/07 13:51:38 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/05/12 10:30:40 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ typedef struct s_all	t_all;
 typedef struct s_philo
 {
 	int					id;
-	int					is_dead;
 	int					meal_count;
 	int					forks[2];
 	pthread_mutex_t		*mutex_right_fork;

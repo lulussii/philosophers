@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 13:42:51 by lserodon          #+#    #+#             */
-/*   Updated: 2025/05/07 13:52:20 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/05/08 19:15:36 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_all
 	int					simulation_active;
 	struct timeval		start_time;
 	pthread_mutex_t		*mutex_forks;
+	pthread_mutex_t		*mutex_meal;
 	pthread_mutex_t		*mutex_max_meals;
 	pthread_mutex_t		*print;
 	pthread_mutex_t		*simulation;
